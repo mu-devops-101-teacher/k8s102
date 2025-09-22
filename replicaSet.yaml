@@ -1,19 +1,13 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: ReplicaSet
 metadata:
-  name: deployment-example
+  name: rs-example
 spec:
-  replicas: 3  # Number of NGINX pods you want
-  revisionHistoryLimit: 3
+  replicas: 3
   selector:
     matchLabels:
       app: nginx
       env: prod
-  strategy:
-    type: RollingUpdate
-    rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
   template:
     metadata:
       labels:

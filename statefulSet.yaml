@@ -1,24 +1,22 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: deployment-example
+  name: sts-example
 spec:
-  replicas: 3  # Number of NGINX pods you want
+  replicas: 2
   revisionHistoryLimit: 3
   selector:
     matchLabels:
-      app: nginx
-      env: prod
-  strategy:
+      app: stateful
+  updateStrategy:
     type: RollingUpdate
     rollingUpdate:
-      maxSurge: 1
-      maxUnavailable: 0
+      partition: 0
+  serviceName: app
   template:
     metadata:
       labels:
-        app: nginx
-        env: prod
+        app: stateful
     spec:
       containers:
       - name: nginx
