@@ -1,0 +1,26 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-readiness-http
+spec:
+  containers:
+  - name: liveness-readiness-http
+    image: registry.k8s.io/liveness
+    livenessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+      initialDelaySeconds: 5
+      periodSeconds: 10
+      timeoutSeconds: 4
+      failureThreshold: 
+    readinessProbe:
+      httpGet:
+        path: /healthz
+        port: 8080
+      initialDelaySeconds: 100
+      periodSeconds: 10
+      timeoutSeconds: 4
+      failureThreshold: 2
